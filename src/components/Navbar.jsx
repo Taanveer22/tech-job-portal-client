@@ -7,16 +7,16 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/register">Register</NavLink>
       </li>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/signin">Signin</NavLink>
       </li>
     </>
   );
   return (
     <div>
-      <div className="max-lg:collapse bg-base-200 lg:mb-48 shadow-sm w-full rounded-md">
+      <div className="max-lg:collapse bg-base-200 shadow-sm w-full rounded-md">
         <input id="navbar-1-toggle" className="peer hidden" type="checkbox" />
         <label
           htmlFor="navbar-1-toggle"
