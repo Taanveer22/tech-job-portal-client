@@ -4,25 +4,34 @@ import signinLottie from "../assets/signinLottie.json";
 import AuthContext from "../context/AuthContext";
 
 const Signin = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, googleSignIn } = useContext(AuthContext);
 
   const handleSignInForm = (e) => {
     e.preventDefault();
-
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+    // sign in auth
     signInUser(email, password)
       .then((result) => {
-        console.log(result);
+        alert(result?.user?.displayName);
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        alert(result?.user?.displayName);
+      })
+      .catch((error) => {
+        alert(error);
       });
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+      <div className="hero-content flex-col lg:flex-row-reverse gap-12">
         <div className="w-96">
           <Lottie animationData={signinLottie}></Lottie>
         </div>
@@ -46,9 +55,15 @@ const Signin = () => {
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
-              <button className="btn btn-neutral mt-4">Login</button>
+              <button className="btn btn-neutral mt-4">Signin</button>
             </fieldset>
           </form>
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn btn-warning mb-4 mx-6"
+          >
+            Signin with google
+          </button>
         </div>
       </div>
     </div>

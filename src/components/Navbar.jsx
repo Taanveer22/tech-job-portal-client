@@ -1,16 +1,29 @@
+import { useContext } from "react";
 import { NavLink } from "react-router";
+import { toast } from "react-toastify";
+import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext);
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        toast.success("sign out done");
+      })
+      .catch(() => {
+        toast.error("sign out failed");
+      });
+  };
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/signin">Signin</NavLink>
+        <NavLink to="/">Home</NavLink>
       </li>
     </>
   );
@@ -43,13 +56,29 @@ const Navbar = () => {
                 />
               </svg>
             </label>
-            <button className="btn btn-ghost text-xl">daisyUI</button>
+            <button className="btn btn-ghost text-xl">Tech Job Portal</button>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
           <div className="navbar-end">
-            <button className="btn btn-sm">Logout</button>
+            {user ? (
+              <div className="flex gap-2 items-center">
+                <span>{user?.displayName || "Active User"}</span>
+                <button onClick={handleSignOut} className="btn btn-sm">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2 items-center">
+                <NavLink to="/register" className="btn btn-sm">
+                  Register
+                </NavLink>
+                <NavLink to="/signin" className="btn btn-sm">
+                  Signin
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
 

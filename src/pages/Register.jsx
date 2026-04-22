@@ -1,26 +1,36 @@
 import Lottie from "lottie-react";
 import { useContext } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import registerLottie from "../assets/registerLottie.json";
 import AuthContext from "../context/AuthContext";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegisterForm = (e) => {
     e.preventDefault();
-
     const name = e.target.name.value;
     const photo = e.target.photo.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(name, photo, email, password);
-
+    //console.log(name, photo, email, password);
+    // create user auth
     createUser(email, password)
       .then((result) => {
-        console.log(result);
+        alert(result?.user?.displayName);
+        updateUserProfile(name, photo)
+          .then(() => {
+            toast.success("profile updated and registration done");
+            navigate("/");
+          })
+          .catch((error) => {
+            alert(error);
+          });
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
   };
   return (
