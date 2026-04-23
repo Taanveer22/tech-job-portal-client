@@ -50,7 +50,7 @@ const HotJobCardDetails = () => {
             <span>{salaryRange.currency}</span>
           </div>
           <div className="flex justify-center items-center">
-            <Link to={`/jobApply/${_id}`} className="btn btn-info">
+            <Link to={`/application/apply/${_id}`} className="btn btn-info">
               Apply
             </Link>
           </div>

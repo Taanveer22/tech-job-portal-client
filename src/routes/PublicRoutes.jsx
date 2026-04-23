@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import HotJobCardDetails from "../components/HotJobCardDetails";
+import JobApply from "../components/JobApply";
 import Root from "../layouts/Root";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
@@ -13,7 +14,7 @@ let router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Home></Home>,
       },
       {
         path: "/jobs/details/:id",
@@ -26,12 +27,20 @@ let router = createBrowserRouter([
           fetch(`http://localhost:5000/jobs/details/${params.id}`),
       },
       {
+        path: "/application/apply/:id",
+        element: (
+          <PrivateRoutes>
+            <JobApply></JobApply>
+          </PrivateRoutes>
+        ),
+      },
+      {
         path: "/register",
-        element: <Register />,
+        element: <Register></Register>,
       },
       {
         path: "/signin",
-        element: <Signin />,
+        element: <Signin></Signin>,
       },
     ],
   },
