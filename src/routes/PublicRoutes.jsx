@@ -4,6 +4,7 @@ import Root from "../layouts/Root";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Signin from "../pages/Signin";
+import PrivateRoutes from "./PrivateRoutes";
 
 let router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ let router = createBrowserRouter([
       },
       {
         path: "/jobs/details/:id",
-        element: <HotJobCardDetails></HotJobCardDetails>,
+        element: (
+          <PrivateRoutes>
+            <HotJobCardDetails></HotJobCardDetails>
+          </PrivateRoutes>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/jobs/details/${params.id}`),
       },
