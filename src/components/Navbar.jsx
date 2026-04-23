@@ -5,6 +5,7 @@ import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  console.log(user);
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
@@ -64,7 +65,7 @@ const Navbar = () => {
           <div className="navbar-end">
             {user ? (
               <div className="flex gap-2 items-center">
-                <span>{user?.displayName || "Active User"}</span>
+                <span>{user?.displayName}</span>
                 <button onClick={handleSignOut} className="btn btn-sm">
                   Logout
                 </button>

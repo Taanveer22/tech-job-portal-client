@@ -18,19 +18,15 @@ const Register = () => {
     //console.log(name, photo, email, password);
     // create user auth
     createUser(email, password)
-      .then((result) => {
-        alert(result?.user?.displayName);
-        updateUserProfile(name, photo)
-          .then(() => {
-            toast.success("profile updated and registration done");
-            navigate("/");
-          })
-          .catch((error) => {
-            alert(error);
-          });
+      .then(() => {
+        return updateUserProfile(name, photo);
+      })
+      .then(() => {
+        toast.success("registration done");
+        navigate("/");
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error.message);
       });
   };
   return (

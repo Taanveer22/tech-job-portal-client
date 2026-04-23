@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import signinLottie from "../assets/signinLottie.json";
 import AuthContext from "../context/AuthContext";
 
@@ -19,23 +20,23 @@ const Signin = () => {
     const password = e.target.password.value;
     // sign in auth
     signInUser(email, password)
-      .then((result) => {
-        alert(result?.user?.displayName);
-        navigate(from);
+      .then(() => {
+        toast.success("Signed in successfully");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error.message);
       });
   };
 
   const handleGoogleSignIn = () => {
     googleSignIn()
-      .then((result) => {
-        alert(result?.user?.displayName);
-        navigate(from);
+      .then(() => {
+        toast.success("Google sign in done");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
-        alert(error);
+        toast.error(error.message);
       });
   };
   return (

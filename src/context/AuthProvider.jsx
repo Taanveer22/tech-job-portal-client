@@ -13,6 +13,10 @@ import AuthContext from "./AuthContext";
 
 const provider = new GoogleAuthProvider();
 provider.addScope("email");
+provider.addScope("profile");
+provider.setCustomParameters({
+  prompt: "select_account consent",
+});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -41,6 +45,27 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        const fireProvider = currentUser?.providerData?.[0] || {};
+        setUser({
+          uid: currentUser.uid,
+          emailVerified: currentUser.emailVerified,
+          displayName:
+            currentUser.displayName || fireProvider?.displayName || null,
+          email: currentUser.email || fireProvider?.email || null,
+          photoURL: currentUser.photoURL || fireProvider?.photoURL || null,
+        });
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
   const authInfo = {
     user,
     loading,
@@ -50,17 +75,6 @@ const AuthProvider = ({ children }) => {
     signOutUser,
     googleSignIn,
   };
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
