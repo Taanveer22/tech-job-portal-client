@@ -12,7 +12,7 @@ const HotJobCard = ({ jobItem }) => {
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
         <p>{description}</p>
-        <Link to={`/jobs/${_id}`}>
+        <Link to={`/jobs/details/${_id}`}>
           <button className="btn btn-sm btn-info btn-block">Apply</button>
         </Link>
       </div>
