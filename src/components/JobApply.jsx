@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import AuthContext from "../context/AuthContext";
 
@@ -7,7 +7,8 @@ const JobApply = () => {
   const { user } = useContext(AuthContext);
   console.log(user?.email);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
+  const navigate = useNavigate();
 
   const handleJobApplicationForm = (e) => {
     e.preventDefault();
@@ -36,6 +37,7 @@ const JobApply = () => {
         console.log(data);
         if (data.insertedId) {
           toast.success("Applied job successfully");
+          navigate("/application/me", { replace: true });
         }
       });
   };

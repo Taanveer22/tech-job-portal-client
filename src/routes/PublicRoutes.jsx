@@ -3,6 +3,7 @@ import HotJobCardDetails from "../components/HotJobCardDetails";
 import JobApply from "../components/JobApply";
 import Root from "../layouts/Root";
 import Home from "../pages/Home";
+import MyApplications from "../pages/MyApplications";
 import Register from "../pages/Register";
 import Signin from "../pages/Signin";
 import PrivateRoutes from "./PrivateRoutes";
@@ -31,6 +32,14 @@ let router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <JobApply></JobApply>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/application/me",
+        element: (
+          <PrivateRoutes>
+            <MyApplications></MyApplications>
           </PrivateRoutes>
         ),
       },

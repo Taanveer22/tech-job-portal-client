@@ -48,14 +48,14 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        const fireProvider = currentUser?.providerData?.[0] || {};
+        const userDetailsData = currentUser?.providerData?.[0] || {};
         setUser({
           uid: currentUser.uid,
           emailVerified: currentUser.emailVerified,
           displayName:
-            currentUser.displayName || fireProvider?.displayName || null,
-          email: currentUser.email || fireProvider?.email || null,
-          photoURL: currentUser.photoURL || fireProvider?.photoURL || null,
+            currentUser.displayName || userDetailsData?.displayName || null,
+          email: currentUser.email || userDetailsData?.email || null,
+          photoURL: currentUser.photoURL || userDetailsData?.photoURL || null,
         });
       } else {
         setUser(null);
