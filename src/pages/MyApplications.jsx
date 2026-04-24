@@ -1,14 +1,30 @@
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import AuthContext from "../context/AuthContext";
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
   const [apps, setApps] = useState([]);
 
+  const handleDeleteApplication = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/applications/me/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          const remainingApps = apps.filter((appItem) => appItem._id !== id);
+          setApps(remainingApps);
+          toast.warning("Application deleted successfully");
+        }
+      });
+  };
+
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/application/me?email=${user?.email}`)
+    fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setApps(data));
   }, [user?.email]);
@@ -62,7 +78,12 @@ const MyApplications = () => {
                 <td>{appItem?.title}</td>
                 <td>{appItem?.jobType}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs">Delete</button>
+                  <button
+                    onClick={() => handleDeleteApplication(appItem?._id)}
+                    className="btn btn-ghost btn-xs"
+                  >
+                    Delete
+                  </button>
                 </th>
               </tr>
             ))}
