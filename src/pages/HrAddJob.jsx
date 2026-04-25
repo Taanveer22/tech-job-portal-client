@@ -1,12 +1,42 @@
+import { useContext } from 'react';
+import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
+
 const HrAddJob = () => {
+  const { user } = useContext(AuthContext);
+
   const handleAddJobForm = (e) => {
     e.preventDefault();
     const wholeFormData = new FormData(e.target);
-    console.log(wholeFormData);
+    // console.log(wholeFormData);
+    const initialFormData = Object.fromEntries(wholeFormData.entries());
+    // console.log(initialFormData);
+    const { min, max, currency, ...restFormData } = initialFormData;
+    // console.log(restFormData, min, max, currency);
+    restFormData.salaryRange = { min, max, currency };
+    // console.log(restFormData);
+    restFormData.requirements = restFormData.requirements.split('\n');
+    restFormData.responsibilities = restFormData.responsibilities.split('\n');
+    // console.log(restFormData);
+
+    fetch(`http://localhost:5000/jobs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(restFormData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast.success('Job data added successfully');
+        }
+      });
   };
 
   return (
-    <div className="max-w-7xl w-11/12 sm:w-3/4 mx-auto">
+    <div className="w-11/12 sm:w-3/4 mx-auto">
       <form onSubmit={handleAddJobForm}>
         <fieldset className="fieldset">
           {/* title */}
@@ -106,7 +136,13 @@ const HrAddJob = () => {
 
           {/* hr email */}
           <label className="label">HR Email</label>
-          <input name="email" type="email" className="input w-full" placeholder="Email" />
+          <input
+            defaultValue={user?.email}
+            name="email"
+            type="email"
+            className="input w-full"
+            placeholder="Email"
+          />
 
           {/* hr name */}
           <label className="label">HR Name</label>

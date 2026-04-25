@@ -1,17 +1,17 @@
-import { createBrowserRouter } from "react-router";
-import HotJobCardDetails from "../components/HotJobCardDetails";
-import JobApply from "../components/JobApply";
-import Root from "../layouts/Root";
-import Home from "../pages/Home";
-import HrAddJob from "../pages/HrAddJob";
-import MyApplications from "../pages/MyApplications";
-import Register from "../pages/Register";
-import Signin from "../pages/Signin";
-import PrivateRoutes from "./PrivateRoutes";
+import { createBrowserRouter } from 'react-router';
+import HotJobCardDetails from '../components/HotJobCardDetails';
+import JobApply from '../components/JobApply';
+import Root from '../layouts/Root';
+import Home from '../pages/Home';
+import HrAddJob from '../pages/HrAddJob';
+import MyApplications from '../pages/MyApplications';
+import Register from '../pages/Register';
+import Signin from '../pages/Signin';
+import PrivateRoutes from './PrivateRoutes';
 
 let router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     children: [
       {
@@ -19,21 +19,20 @@ let router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/jobs/details/:id",
+        path: '/jobs/details/:id',
         element: (
           <PrivateRoutes>
             <HotJobCardDetails></HotJobCardDetails>
           </PrivateRoutes>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobs/details/${params.id}`),
+        loader: ({ params }) => fetch(`http://localhost:5000/jobs/details/${params.id}`),
       },
       {
-        path: "/jobs/add",
+        path: '/jobs/add',
         element: <HrAddJob></HrAddJob>,
       },
       {
-        path: "/applications/apply/:id",
+        path: '/applications/apply/:id',
         element: (
           <PrivateRoutes>
             <JobApply></JobApply>
@@ -41,7 +40,7 @@ let router = createBrowserRouter([
         ),
       },
       {
-        path: "/applications/me",
+        path: '/applications/me',
         element: (
           <PrivateRoutes>
             <MyApplications></MyApplications>
@@ -49,11 +48,11 @@ let router = createBrowserRouter([
         ),
       },
       {
-        path: "/register",
+        path: '/register',
         element: <Register></Register>,
       },
       {
-        path: "/signin",
+        path: '/signin',
         element: <Signin></Signin>,
       },
     ],

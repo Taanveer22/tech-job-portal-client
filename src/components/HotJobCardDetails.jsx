@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData } from 'react-router';
 
 const HotJobCardDetails = () => {
   const loadedDetailsData = useLoaderData();
@@ -50,7 +50,7 @@ const HotJobCardDetails = () => {
             <span>{salaryRange.currency}</span>
           </div>
           <div className="flex justify-center items-center">
-            <Link to={`/application/apply/${_id}`} className="btn btn-info">
+            <Link to={`/applications/apply/${_id}`} className="btn btn-info">
               Apply
             </Link>
           </div>

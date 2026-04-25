@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import AuthContext from "../context/AuthContext";
+import { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
@@ -9,21 +9,20 @@ const MyApplications = () => {
   const handleDeleteApplication = (id) => {
     console.log(id);
     fetch(`http://localhost:5000/applications/me/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
           const remainingApps = apps.filter((appItem) => appItem._id !== id);
           setApps(remainingApps);
-          toast.warning("Application deleted successfully");
+          toast.warning('Application deleted successfully');
         }
       });
   };
 
   useEffect(() => {
     if (!user?.email) return;
-
     fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setApps(data));
@@ -61,17 +60,12 @@ const MyApplications = () => {
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={appItem?.company_logo}
-                          alt="Avatar Tailwind CSS Component"
-                        />
+                        <img src={appItem?.company_logo} alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                     <div>
                       <div className="font-bold">{appItem?.company}</div>
-                      <div className="text-sm opacity-50">
-                        {appItem?.location}
-                      </div>
+                      <div className="text-sm opacity-50">{appItem?.location}</div>
                     </div>
                   </div>
                 </td>

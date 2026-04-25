@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import { useNavigate, useParams } from "react-router";
-import { toast } from "react-toastify";
-import AuthContext from "../context/AuthContext";
+import { useContext } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
 
 const JobApply = () => {
   const { user } = useContext(AuthContext);
-  console.log(user?.email);
+  // console.log(user?.email);
   const { id } = useParams();
   // console.log(id);
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ const JobApply = () => {
     };
 
     fetch(`http://localhost:5000/applications/apply/${id}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(jobInfo),
     })
@@ -36,8 +36,8 @@ const JobApply = () => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          toast.success("Applied job successfully");
-          navigate("/applications/me", { replace: true });
+          toast.success('Applied job successfully');
+          navigate('/applications/me', { replace: true });
         }
       });
   };
@@ -47,28 +47,13 @@ const JobApply = () => {
       <form onSubmit={handleJobApplicationForm}>
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           <label className="label">Linkedin</label>
-          <input
-            name="linkedin"
-            type="url"
-            className="input"
-            placeholder="Linkedin"
-          />
+          <input name="linkedin" type="url" className="input" placeholder="Linkedin" />
 
           <label className="label">Github</label>
-          <input
-            name="github"
-            type="url"
-            className="input"
-            placeholder="Github"
-          />
+          <input name="github" type="url" className="input" placeholder="Github" />
 
           <label className="label">Resume</label>
-          <input
-            name="resume"
-            type="url"
-            className="input"
-            placeholder="Resume"
-          />
+          <input name="resume" type="url" className="input" placeholder="Resume" />
 
           <button className="btn btn-info mt-4">Apply Now</button>
         </fieldset>
