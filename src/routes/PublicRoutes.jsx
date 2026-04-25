@@ -3,6 +3,7 @@ import HotJobCardDetails from "../components/HotJobCardDetails";
 import JobApply from "../components/JobApply";
 import Root from "../layouts/Root";
 import Home from "../pages/Home";
+import HrAddJob from "../pages/HrAddJob";
 import MyApplications from "../pages/MyApplications";
 import Register from "../pages/Register";
 import Signin from "../pages/Signin";
@@ -28,7 +29,11 @@ let router = createBrowserRouter([
           fetch(`http://localhost:5000/jobs/details/${params.id}`),
       },
       {
-        path: "/application/apply/:id",
+        path: "/jobs/add",
+        element: <HrAddJob></HrAddJob>,
+      },
+      {
+        path: "/applications/apply/:id",
         element: (
           <PrivateRoutes>
             <JobApply></JobApply>
@@ -36,7 +41,7 @@ let router = createBrowserRouter([
         ),
       },
       {
-        path: "/application/me",
+        path: "/applications/me",
         element: (
           <PrivateRoutes>
             <MyApplications></MyApplications>

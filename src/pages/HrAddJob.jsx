@@ -1,0 +1,127 @@
+const HrAddJob = () => {
+  const handleAddJobForm = (e) => {
+    e.preventDefault();
+    const wholeFormData = new FormData(e.target);
+    console.log(wholeFormData);
+  };
+
+  return (
+    <div className="max-w-7xl w-11/12 sm:w-3/4 mx-auto">
+      <form onSubmit={handleAddJobForm}>
+        <fieldset className="fieldset">
+          {/* title */}
+          <label className="label">Job Title</label>
+          <input name="title" type="text" className="input w-full" placeholder="Title" />
+
+          {/* location */}
+          <label className="label">Job Location</label>
+          <input name="location" type="text" className="input w-full" placeholder="Location" />
+
+          {/* job type */}
+          <label className="label">Job Type</label>
+          <input name="type" type="text" className="input w-full" placeholder="Type" list="types" />
+          <datalist id="types">
+            <option value="Remote"></option>
+            <option value="Hybrid"></option>
+            <option value="On Site"></option>
+          </datalist>
+
+          {/* job category */}
+          <label className="label">Job Category</label>
+          <input
+            name="category"
+            type="text"
+            className="input w-full"
+            placeholder="Category"
+            list="categories"
+          />
+          <datalist id="categories">
+            <option value="Engineering"></option>
+            <option value="Marketing"></option>
+            <option value="Banking"></option>
+          </datalist>
+
+          {/* company_name */}
+          <label className="label">Company Name</label>
+          <input name="company" type="text" className="input w-full" placeholder="Company" />
+
+          {/* company_logo */}
+          <label className="label">Company Logo</label>
+          <input name="logo" type="url" className="input w-full" placeholder="Logo" />
+
+          {/* status */}
+          <label className="label">Status</label>
+          <input name="status" type="text" className="input w-full" placeholder="Status" />
+
+          {/* salary range */}
+          <label className="label">Salary Range</label>
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <input name="min" type="number" className="input w-full" placeholder="Min" />
+            <input name="max" type="number" className="input w-full" placeholder="Max" />
+            <div>
+              <input
+                name="currency"
+                type="text"
+                className="input w-full"
+                placeholder="Currency"
+                list="currencies"
+              />
+              <datalist id="currencies">
+                <option value="BDT"></option>
+                <option value="RIAL"></option>
+                <option value="DINAR"></option>
+              </datalist>
+            </div>
+          </div>
+
+          {/* description */}
+          <fieldset className="fieldset">
+            <div className="label">Job Description</div>
+            <textarea
+              name="description"
+              className="textarea h-24 w-full"
+              placeholder="Description"
+            ></textarea>
+          </fieldset>
+
+          {/* requirements */}
+          <fieldset className="fieldset">
+            <div className="label">Job Requirements</div>
+            <textarea
+              name="requirements"
+              className="textarea h-24 w-full"
+              placeholder="Give one requirements in a line"
+            ></textarea>
+          </fieldset>
+
+          {/* responsibilities */}
+          <fieldset className="fieldset">
+            <div className="label">Job Responsibilities</div>
+            <textarea
+              name="responsibilities"
+              className="textarea h-24 w-full"
+              placeholder="Give one responsibilities in a line"
+            ></textarea>
+          </fieldset>
+
+          {/* hr email */}
+          <label className="label">HR Email</label>
+          <input name="email" type="email" className="input w-full" placeholder="Email" />
+
+          {/* hr name */}
+          <label className="label">HR Name</label>
+          <input name="name" type="text" className="input w-full" placeholder="Name" />
+
+          {/* deadline */}
+          <label className="label">Application Deadline</label>
+          <input name="deadline" type="date" className="input w-full" />
+
+          {/* submit */}
+          <button className="btn btn-neutral mt-4">Add Job</button>
+        </fieldset>
+      </form>
+    </div>
+  );
+};
+
+export default HrAddJob;

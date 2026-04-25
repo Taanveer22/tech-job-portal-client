@@ -37,7 +37,7 @@ const JobApply = () => {
         console.log(data);
         if (data.insertedId) {
           toast.success("Applied job successfully");
-          navigate("/application/me", { replace: true });
+          navigate("/applications/me", { replace: true });
         }
       });
   };
