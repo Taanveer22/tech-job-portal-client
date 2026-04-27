@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import { NavLink } from "react-router";
-import { toast } from "react-toastify";
-import AuthContext from "../context/AuthContext";
+import { useContext } from 'react';
+import { NavLink } from 'react-router';
+import { toast } from 'react-toastify';
+import AuthContext from '../context/AuthContext';
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
@@ -9,10 +9,10 @@ const Navbar = () => {
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
-        toast.success("sign out done");
+        toast.success('sign out done');
       })
       .catch(() => {
-        toast.error("sign out failed");
+        toast.error('sign out failed');
       });
   };
   const links = (
@@ -26,6 +26,9 @@ const Navbar = () => {
       <li>
         <NavLink to="/jobs/add">Hr Add Job</NavLink>
       </li>
+      <li>
+        <NavLink to="/jobs/post">Hr Posted Jobs</NavLink>
+      </li>
     </>
   );
   return (
@@ -38,10 +41,7 @@ const Navbar = () => {
         ></label>
         <div className="collapse-title navbar">
           <div className="navbar-start">
-            <label
-              htmlFor="navbar-1-toggle"
-              className="btn btn-ghost lg:hidden"
-            >
+            <label htmlFor="navbar-1-toggle" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"

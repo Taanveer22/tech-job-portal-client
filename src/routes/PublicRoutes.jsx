@@ -4,6 +4,7 @@ import JobApply from '../components/JobApply';
 import Root from '../layouts/Root';
 import Home from '../pages/Home';
 import HrAddJob from '../pages/HrAddJob';
+import HrPostedJobs from '../pages/HrPostedJobs';
 import MyApplications from '../pages/MyApplications';
 import Register from '../pages/Register';
 import Signin from '../pages/Signin';
@@ -29,7 +30,19 @@ let router = createBrowserRouter([
       },
       {
         path: '/jobs/add',
-        element: <HrAddJob></HrAddJob>,
+        element: (
+          <PrivateRoutes>
+            <HrAddJob></HrAddJob>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: '/jobs/post',
+        element: (
+          <PrivateRoutes>
+            <HrPostedJobs></HrPostedJobs>
+          </PrivateRoutes>
+        ),
       },
       {
         path: '/applications/apply/:id',

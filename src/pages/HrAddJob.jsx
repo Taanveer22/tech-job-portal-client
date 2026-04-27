@@ -17,7 +17,7 @@ const HrAddJob = () => {
     // console.log(restFormData);
     restFormData.requirements = restFormData.requirements.split('\n');
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
-    // console.log(restFormData);
+    console.log(restFormData);
 
     fetch(`http://localhost:5000/jobs`, {
       method: 'POST',
@@ -49,7 +49,13 @@ const HrAddJob = () => {
 
           {/* job type */}
           <label className="label">Job Type</label>
-          <input name="type" type="text" className="input w-full" placeholder="Type" list="types" />
+          <input
+            name="jobType"
+            type="text"
+            className="input w-full"
+            placeholder="Type"
+            list="types"
+          />
           <datalist id="types">
             <option value="Remote"></option>
             <option value="Hybrid"></option>
@@ -77,7 +83,7 @@ const HrAddJob = () => {
 
           {/* company_logo */}
           <label className="label">Company Logo</label>
-          <input name="logo" type="url" className="input w-full" placeholder="Logo" />
+          <input name="company_logo" type="url" className="input w-full" placeholder="Logo" />
 
           {/* status */}
           <label className="label">Status</label>
@@ -138,7 +144,7 @@ const HrAddJob = () => {
           <label className="label">HR Email</label>
           <input
             defaultValue={user?.email}
-            name="email"
+            name="hr_email"
             type="email"
             className="input w-full"
             placeholder="Email"
@@ -146,11 +152,11 @@ const HrAddJob = () => {
 
           {/* hr name */}
           <label className="label">HR Name</label>
-          <input name="name" type="text" className="input w-full" placeholder="Name" />
+          <input name="hr_name" type="text" className="input w-full" placeholder="Name" />
 
           {/* deadline */}
           <label className="label">Application Deadline</label>
-          <input name="deadline" type="date" className="input w-full" />
+          <input name="applicationDeadline" type="date" className="input w-full" />
 
           {/* submit */}
           <button className="btn btn-neutral mt-4">Add Job</button>
@@ -161,3 +167,18 @@ const HrAddJob = () => {
 };
 
 export default HrAddJob;
+
+// title
+// location
+// jobType
+// category
+// applicationDeadline
+// salaryRange
+// description
+// company
+// requirements
+// responsibilities
+// status
+// hr_email
+// hr_name
+// company_logo
