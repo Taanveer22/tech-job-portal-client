@@ -10,11 +10,11 @@ const HrPostedJobs = () => {
     fetch(`http://localhost:5000/jobs?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setPostedJobs(data);
       });
   }, [user?.email]);
-  console.log(postedJobs);
+  // console.log(postedJobs);
 
   return (
     <div>
@@ -31,7 +31,7 @@ const HrPostedJobs = () => {
               <th>Job Title</th>
               <th>Application Deadline</th>
               <th>Application Count</th>
-              <th> Applications</th>
+              <th> Application Info</th>
             </tr>
           </thead>
           <tbody>
