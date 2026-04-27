@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import AuthContext from '../context/AuthContext';
 
 const HrPostedJobs = () => {
@@ -13,6 +14,7 @@ const HrPostedJobs = () => {
         setPostedJobs(data);
       });
   }, [user?.email]);
+  console.log(postedJobs);
 
   return (
     <div>
@@ -29,15 +31,21 @@ const HrPostedJobs = () => {
               <th>Job Title</th>
               <th>Application Deadline</th>
               <th>Application Count</th>
+              <th> Applications</th>
             </tr>
           </thead>
           <tbody>
             {postedJobs.map((jobItem, index) => (
               <tr key={jobItem._id}>
-                <th>{index + 1}</th>
+                <td>{index + 1}</td>
                 <td>{jobItem?.title}</td>
                 <td>{jobItem?.applicationDeadline}</td>
                 <td>{jobItem?.applicationCount}</td>
+                <td>
+                  <Link to={`/applications/review/${jobItem._id}`}>
+                    <button className="btn btn-sm btn-link">View Applications</button>
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

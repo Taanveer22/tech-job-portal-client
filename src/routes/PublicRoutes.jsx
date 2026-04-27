@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import HotJobCardDetails from '../components/HotJobCardDetails';
+import HrReviewApplications from '../components/HrReviewApplications';
 import JobApply from '../components/JobApply';
 import Root from '../layouts/Root';
 import Home from '../pages/Home';
@@ -59,6 +60,11 @@ let router = createBrowserRouter([
             <MyApplications></MyApplications>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: '/applications/review/:jobId',
+        element: <HrReviewApplications></HrReviewApplications>,
+        loader: ({ params }) => fetch(`http://localhost:5000/applications/review/${params.jobId}`),
       },
       {
         path: '/register',
