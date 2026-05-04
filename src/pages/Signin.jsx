@@ -23,9 +23,9 @@ const Signin = () => {
     signInUser(email, password)
       .then(() => {
         toast.success('Signed in successfully');
-        const user = { email: email };
+        const userInfo = { email: email };
         axios
-          .post(`http://localhost:5000/jwt`, user)
+          .post(`http://localhost:5000/jwt`, userInfo, { withCredentials: true })
           .then((res) => {
             console.log(res.data);
           })
