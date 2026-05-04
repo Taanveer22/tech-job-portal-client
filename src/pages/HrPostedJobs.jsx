@@ -43,7 +43,7 @@ const HrPostedJobs = () => {
                 <td>{jobItem?.applicationCount}</td>
                 <td>
                   <Link to={`/applications/review/${jobItem._id}`}>
-                    <button className="btn btn-sm btn-link">View Applications</button>
+                    <button className="btn btn-sm btn-link">Review Applications</button>
                   </Link>
                 </td>
               </tr>

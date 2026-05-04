@@ -1,9 +1,10 @@
-import Lottie from "lottie-react";
-import { useContext } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import signinLottie from "../assets/signinLottie.json";
-import AuthContext from "../context/AuthContext";
+import axios from 'axios';
+import Lottie from 'lottie-react';
+import { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+import signinLottie from '../assets/signinLottie.json';
+import AuthContext from '../context/AuthContext';
 
 const Signin = () => {
   const { signInUser, googleSignIn } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const Signin = () => {
   const navigate = useNavigate();
   // console.log(navigate);
 
-  const from = location?.state || "/";
+  const from = location?.state || '/';
 
   const handleSignInForm = (e) => {
     e.preventDefault();
@@ -21,7 +22,16 @@ const Signin = () => {
     // sign in auth
     signInUser(email, password)
       .then(() => {
-        toast.success("Signed in successfully");
+        toast.success('Signed in successfully');
+        const user = { email: email };
+        axios
+          .post(`http://localhost:5000/jwt`, user)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -32,7 +42,7 @@ const Signin = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
-        toast.success("Google sign in done");
+        toast.success('Google sign in done');
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -49,29 +59,16 @@ const Signin = () => {
           <form onSubmit={handleSignInForm} className="card-body">
             <fieldset className="fieldset">
               <label className="label">Email</label>
-              <input
-                name="email"
-                type="email"
-                className="input"
-                placeholder="Email"
-              />
+              <input name="email" type="email" className="input" placeholder="Email" />
               <label className="label">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="input"
-                placeholder="Password"
-              />
+              <input name="password" type="password" className="input" placeholder="Password" />
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>
               <button className="btn btn-neutral mt-4">Signin</button>
             </fieldset>
           </form>
-          <button
-            onClick={handleGoogleSignIn}
-            className="btn btn-warning mb-4 mx-6"
-          >
+          <button onClick={handleGoogleSignIn} className="btn btn-warning mb-4 mx-6">
             Signin with google
           </button>
         </div>

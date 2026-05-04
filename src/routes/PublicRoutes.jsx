@@ -63,7 +63,11 @@ let router = createBrowserRouter([
       },
       {
         path: '/applications/review/:jobId',
-        element: <HrReviewApplications></HrReviewApplications>,
+        element: (
+          <PrivateRoutes>
+            <HrReviewApplications></HrReviewApplications>
+          </PrivateRoutes>
+        ),
         loader: ({ params }) => fetch(`http://localhost:5000/applications/review/${params.jobId}`),
       },
       {
