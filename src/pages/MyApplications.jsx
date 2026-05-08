@@ -8,32 +8,46 @@ const MyApplications = () => {
   const [apps, setApps] = useState([]);
 
   const handleDeleteApplication = (id) => {
-    console.log(id);
-    fetch(`http://localhost:5000/applications/me/${id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
+    // console.log(id);
+    axios
+      .delete(`http://localhost:5000/applications/me/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.deletedCount > 0) {
           const remainingApps = apps.filter((appItem) => appItem._id !== id);
           setApps(remainingApps);
-          toast.warning('Application deleted successfully');
+          toast.success('Application deleted done');
         }
       });
+    // ============================================================
+    // fetch(`http://localhost:5000/applications/me/${id}`, {
+    //   method: 'DELETE',
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     if (data.deletedCount > 0) {
+    //       const remainingApps = apps.filter((appItem) => appItem._id !== id);
+    //       setApps(remainingApps);
+    //       toast.warning('Application deleted successfully');
+    //     }
+    //   });
   };
 
   useEffect(() => {
     if (!user?.email) return;
-    // fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setApps(data));
-
     axios
       .get(`http://localhost:5000/applications/me?email=${user?.email}`, {
         withCredentials: true,
       })
       .then((res) => setApps(res.data));
+    // ============================================================
+    // fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setApps(data));
   }, [user?.email]);
+
   return (
     <div>
       <h1 className="text-2xl font-semibold text-center mb-4">
