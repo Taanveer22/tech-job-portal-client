@@ -15,39 +15,55 @@ const Signin = () => {
 
   const from = location?.state || '/';
 
-  const handleSignInForm = (e) => {
+  const handleSignInForm = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     // sign in auth
-    signInUser(email, password)
-      .then(() => {
-        toast.success('Signed in successfully');
-        const userInfo = { email: email };
-        axios
-          .post(`http://localhost:5000/jwt`, userInfo, { withCredentials: true })
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        toast.error(error.message);
+    try {
+      // ✅ Firebase/Auth signin
+      await signInUser(email, password);
+      toast.success('Signed in successfully');
+
+      // ✅ Create JWT payload
+      const userInfo = { email: email };
+
+      // ✅ Wait until cookie is stored
+      const res = await axios.post(`http://localhost:5000/jwt`, userInfo, {
+        withCredentials: true,
       });
+      console.log(res.data);
+
+      // ✅ Redirect after successful JWT creation
+      navigate(from, { replace: true });
+    } catch (error) {
+      // console.log(error);
+      toast.error(error.message);
+    }
   };
 
-  const handleGoogleSignIn = () => {
-    googleSignIn()
-      .then(() => {
-        toast.success('Google sign in done');
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        toast.error(error.message);
+  const handleGoogleSignIn = async () => {
+    try {
+      // ✅ Google login
+      const result = await googleSignIn();
+      toast.success('Google sign in done');
+
+      // ✅ Get logged in user email
+      const userInfo = {
+        email: result?.user?.email || result?.currentUser?.providerData?.[0]?.email,
+      };
+
+      // ✅ Create JWT + store cookie
+      const res = axios.post(`http://localhost:5000/jwt`, userInfo, {
+        withCredentials: true,
       });
+      console.log(res.data);
+      // ✅ Redirect after JWT cookie stored
+      navigate(from, { replace: true });
+    } catch (error) {
+      // console.log(error);
+      toast.error(error.message);
+    }
   };
   return (
     <div className="hero bg-base-200 min-h-screen">

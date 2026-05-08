@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import AuthContext from '../context/AuthContext';
@@ -23,9 +24,15 @@ const MyApplications = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setApps(data));
+    // fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
+    //   .then((res) => res.json())
+    //   .then((data) => setApps(data));
+
+    axios
+      .get(`http://localhost:5000/applications/me?email=${user?.email}`, {
+        withCredentials: true,
+      })
+      .then((res) => setApps(res.data));
   }, [user?.email]);
   return (
     <div>
