@@ -19,7 +19,7 @@ const HrAddJob = () => {
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
     // console.log(restFormData);
 
-    fetch(`http://localhost:5000/jobs`, {
+    fetch(`https://tech-job-portal-server.vercel.app/jobs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

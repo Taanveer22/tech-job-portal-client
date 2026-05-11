@@ -11,7 +11,7 @@ const MyApplications = () => {
   const handleDeleteApplication = (id) => {
     // console.log(id);
     axios
-      .delete(`http://localhost:5000/applications/me/${id}`, {
+      .delete(`https://tech-job-portal-server.vercel.app/applications/me/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -22,31 +22,15 @@ const MyApplications = () => {
           toast.success('Application deleted done');
         }
       });
-    // ============================================================
-    // fetch(`http://localhost:5000/applications/me/${id}`, {
-    //   method: 'DELETE',
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.deletedCount > 0) {
-    //       const remainingApps = apps.filter((appItem) => appItem._id !== id);
-    //       setApps(remainingApps);
-    //       toast.warning('Application deleted successfully');
-    //     }
-    //   });
   };
 
   useEffect(() => {
     if (!user?.email) return;
     axios
-      .get(`http://localhost:5000/applications/me?email=${user?.email}`, {
+      .get(`https://tech-job-portal-server.vercel.app/applications/me?email=${user?.email}`, {
         withCredentials: true,
       })
       .then((res) => setApps(res.data));
-    // ============================================================
-    // fetch(`http://localhost:5000/applications/me?email=${user?.email}`)
-    //   .then((res) => res.json())
-    //   .then((data) => setApps(data));
   }, [user?.email]);
 
   return (

@@ -29,9 +29,13 @@ const Signin = () => {
       const userEmail = { email: email };
 
       // ✅ Wait until cookie is stored
-      const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `https://tech-job-portal-server.vercel.app/auth/login`,
+        userEmail,
+        {
+          withCredentials: true,
+        }
+      );
       alert(res.data);
 
       // ✅ Redirect after successful JWT creation
@@ -54,9 +58,13 @@ const Signin = () => {
       };
 
       // ✅ Create JWT + store cookie
-      const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `https://tech-job-portal-server.vercel.app/auth/login`,
+        userEmail,
+        {
+          withCredentials: true,
+        }
+      );
       alert(res.data);
       // ✅ Redirect after JWT cookie stored
       navigate(from, { replace: true });

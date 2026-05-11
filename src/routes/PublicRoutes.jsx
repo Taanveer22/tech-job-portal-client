@@ -27,7 +27,8 @@ let router = createBrowserRouter([
             <HotJobCardDetails></HotJobCardDetails>
           </PrivateRoutes>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/jobs/details/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`https://tech-job-portal-server.vercel.app/jobs/details/${params.id}`),
       },
       {
         path: '/jobs/add',
@@ -68,7 +69,8 @@ let router = createBrowserRouter([
             <HrReviewApplications></HrReviewApplications>
           </PrivateRoutes>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/applications/review/${params.jobId}`),
+        loader: ({ params }) =>
+          fetch(`https://tech-job-portal-server.vercel.app/applications/review/${params.jobId}`),
       },
       {
         path: '/register',

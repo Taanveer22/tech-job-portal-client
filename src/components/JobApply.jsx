@@ -26,7 +26,9 @@ const JobApply = () => {
     };
     // console.log(jobInfo);
     axios
-      .post(`http://localhost:5000/applications/apply/${id}`, jobInfo, { withCredentials: true })
+      .post(`https://tech-job-portal-server.vercel.app/applications/apply/${id}`, jobInfo, {
+        withCredentials: true,
+      })
       .then((res) => {
         // console.log(res.data);
         if (res.data.insertedId) {
@@ -35,7 +37,7 @@ const JobApply = () => {
         }
       });
     // ===========================================================
-    // fetch(`http://localhost:5000/applications/apply/${id}`, {
+    // fetch(`https://tech-job-portal-server.vercel.app/applications/apply/${id}`, {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',

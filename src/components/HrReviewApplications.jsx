@@ -11,7 +11,7 @@ const HrReviewApplications = () => {
       status: e.target.value,
     };
 
-    fetch(`http://localhost:5000/applications/status/${id}`, {
+    fetch(`https://tech-job-portal-server.vercel.app/applications/status/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
