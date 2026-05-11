@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
@@ -16,7 +17,6 @@ const JobApply = () => {
     const github = e.target.github.value;
     const resume = e.target.resume.value;
     // console.log(linkedin, github, resume);
-
     const jobInfo = {
       applicant_email: user?.email,
       job_id: id,
@@ -24,22 +24,32 @@ const JobApply = () => {
       github,
       resume,
     };
-
-    fetch(`http://localhost:5000/applications/apply/${id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(jobInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
+    // console.log(jobInfo);
+    axios
+      .post(`http://localhost:5000/applications/apply/${id}`, jobInfo, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
           toast.success('Applied job successfully');
           navigate('/applications/me', { replace: true });
         }
       });
+    // ===========================================================
+    // fetch(`http://localhost:5000/applications/apply/${id}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(jobInfo),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     if (data.insertedId) {
+    //       toast.success('Applied job successfully');
+    //       navigate('/applications/me', { replace: true });
+    //     }
+    //   });
   };
 
   return (

@@ -5,6 +5,7 @@ import AuthContext from '../context/AuthContext';
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
+  console.log(user?.email);
   const [apps, setApps] = useState([]);
 
   const handleDeleteApplication = (id) => {

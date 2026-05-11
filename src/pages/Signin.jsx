@@ -26,10 +26,10 @@ const Signin = () => {
       toast.success('Signed in successfully');
 
       // ✅ Create JWT payload
-      const userInfo = { email: email };
+      const userEmail = { email: email };
 
       // ✅ Wait until cookie is stored
-      const res = await axios.post(`http://localhost:5000/jwt`, userInfo, {
+      const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
         withCredentials: true,
       });
       console.log(res.data);
@@ -49,12 +49,12 @@ const Signin = () => {
       toast.success('Google sign in done');
 
       // ✅ Get logged in user email
-      const userInfo = {
-        email: result?.user?.email || result?.currentUser?.providerData?.[0]?.email,
+      const userEmail = {
+        email: result?.user?.email || result?.user?.providerData[0]?.email,
       };
 
       // ✅ Create JWT + store cookie
-      const res = axios.post(`http://localhost:5000/jwt`, userInfo, {
+      const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
         withCredentials: true,
       });
       console.log(res.data);
@@ -65,6 +65,7 @@ const Signin = () => {
       toast.error(error.message);
     }
   };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse gap-12">
