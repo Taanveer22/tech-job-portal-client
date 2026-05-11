@@ -28,7 +28,7 @@ const JobApply = () => {
     axios
       .post(`http://localhost:5000/applications/apply/${id}`, jobInfo, { withCredentials: true })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.insertedId) {
           toast.success('Applied job successfully');
           navigate('/applications/me', { replace: true });

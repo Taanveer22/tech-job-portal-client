@@ -32,7 +32,7 @@ const Signin = () => {
       const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
         withCredentials: true,
       });
-      console.log(res.data);
+      alert(res.data);
 
       // ✅ Redirect after successful JWT creation
       navigate(from, { replace: true });
@@ -57,7 +57,7 @@ const Signin = () => {
       const res = await axios.post(`http://localhost:5000/jwt`, userEmail, {
         withCredentials: true,
       });
-      console.log(res.data);
+      alert(res.data);
       // ✅ Redirect after JWT cookie stored
       navigate(from, { replace: true });
     } catch (error) {

@@ -6,7 +6,7 @@ const HrReviewApplications = () => {
   //   console.log(ReviewedApps);
 
   const handleUpdateStatus = (e, id) => {
-    console.log(e.target.value, id);
+    // console.log(e.target.value, id);
     const statusData = {
       status: e.target.value,
     };

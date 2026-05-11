@@ -17,7 +17,7 @@ const HrAddJob = () => {
     // console.log(restFormData);
     restFormData.requirements = restFormData.requirements.split('\n');
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
-    console.log(restFormData);
+    // console.log(restFormData);
 
     fetch(`http://localhost:5000/jobs`, {
       method: 'POST',
@@ -28,7 +28,7 @@ const HrAddJob = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.insertedId) {
           toast.success('Job data added successfully');
         }
