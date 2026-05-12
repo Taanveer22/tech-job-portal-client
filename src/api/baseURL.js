@@ -1,2 +1,2 @@
-const BASE_URL = 'https://tech-job-portal-server.vercel.app';
+const BASE_URL = '/api';
 export default BASE_URL;
