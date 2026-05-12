@@ -22,6 +22,10 @@ const MyApplications = () => {
           setApps(remainingApps);
           toast.success('Application deleted done');
         }
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to load applications');
       });
   };
 
@@ -31,7 +35,11 @@ const MyApplications = () => {
       .get(`${BASE_URL}/applications/me?email=${user?.email}`, {
         withCredentials: true,
       })
-      .then((res) => setApps(res.data));
+      .then((res) => setApps(res.data))
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to load applications');
+      });
   }, [user?.email]);
 
   return (

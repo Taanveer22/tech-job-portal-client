@@ -25,7 +25,6 @@ const Signin = () => {
       // ✅ Firebase authentication
       // result contains verified Firebase user
       const result = await signInUser(email, password);
-      toast.success('Signed in successfully');
 
       // ✅ ALWAYS get email from Firebase user
       // safer than using form input email
@@ -37,7 +36,7 @@ const Signin = () => {
       });
       // console.log(res.data);
       if (res?.data) {
-        toast.success('Signin done');
+        toast.success('Signin done with token');
       }
 
       // ✅ Redirect after successful JWT creation
@@ -53,7 +52,6 @@ const Signin = () => {
       // ✅ Firebase authentication
       // result contains verified Firebase user
       const result = await googleSignIn();
-      toast.success('Google sign in done');
 
       // ✅ ALWAYS get email from Firebase user
       // safer than using form input email
@@ -67,7 +65,7 @@ const Signin = () => {
       });
       // console.log(res.data);
       if (res?.data) {
-        toast.success('Google Sign In done');
+        toast.success('Google sign in done with token');
       }
 
       // ✅ Redirect after JWT cookie stored
