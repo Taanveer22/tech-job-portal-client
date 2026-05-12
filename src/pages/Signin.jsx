@@ -20,7 +20,6 @@ const Signin = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // sign in auth
     try {
       // ✅ Firebase authentication
       // result contains verified Firebase user
@@ -49,12 +48,10 @@ const Signin = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      // ✅ Firebase authentication
-      // result contains verified Firebase user
+      // ✅result contains verified Firebase user
       const result = await googleSignIn();
 
       // ✅ ALWAYS get email from Firebase user
-      // safer than using form input email
       const userEmail = {
         email: result?.user?.email || result?.user?.providerData[0]?.email,
       };
