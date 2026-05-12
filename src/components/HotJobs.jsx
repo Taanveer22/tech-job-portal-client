@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import BASE_URL from '../api/baseURL';
 import HotJobCard from './HotJobCard';
 
 const HotJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`https://tech-job-portal-server.vercel.app/jobs`)
+    fetch(`${BASE_URL}/jobs`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, []);

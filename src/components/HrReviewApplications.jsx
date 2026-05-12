@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 
 const HrReviewApplications = () => {
   const ReviewedApps = useLoaderData();
@@ -11,7 +12,7 @@ const HrReviewApplications = () => {
       status: e.target.value,
     };
 
-    fetch(`https://tech-job-portal-server.vercel.app/applications/status/${id}`, {
+    fetch(`${BASE_URL}/applications/status/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

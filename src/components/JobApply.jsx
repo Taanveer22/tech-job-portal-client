@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
 const JobApply = () => {
@@ -26,7 +27,7 @@ const JobApply = () => {
     };
     // console.log(jobInfo);
     axios
-      .post(`https://tech-job-portal-server.vercel.app/applications/apply/${id}`, jobInfo, {
+      .post(`${BASE_URL}/applications/apply/${id}`, jobInfo, {
         withCredentials: true,
       })
       .then((res) => {
@@ -36,22 +37,6 @@ const JobApply = () => {
           navigate('/applications/me', { replace: true });
         }
       });
-    // ===========================================================
-    // fetch(`https://tech-job-portal-server.vercel.app/applications/apply/${id}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(jobInfo),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       toast.success('Applied job successfully');
-    //       navigate('/applications/me', { replace: true });
-    //     }
-    //   });
   };
 
   return (

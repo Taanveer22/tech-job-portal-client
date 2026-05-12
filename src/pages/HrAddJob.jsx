@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
 const HrAddJob = () => {
@@ -19,7 +20,7 @@ const HrAddJob = () => {
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
     // console.log(restFormData);
 
-    fetch(`https://tech-job-portal-server.vercel.app/jobs`, {
+    fetch(`${BASE_URL}/jobs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ const HrAddJob = () => {
       .then((data) => {
         // console.log(data);
         if (data.insertedId) {
-          toast.success('Job data added successfully');
+          toast.success('HR job data added successfully');
         }
       });
   };

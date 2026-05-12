@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
 const MyApplications = () => {
@@ -11,7 +12,7 @@ const MyApplications = () => {
   const handleDeleteApplication = (id) => {
     // console.log(id);
     axios
-      .delete(`https://tech-job-portal-server.vercel.app/applications/me/${id}`, {
+      .delete(`${BASE_URL}/applications/me/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -27,7 +28,7 @@ const MyApplications = () => {
   useEffect(() => {
     if (!user?.email) return;
     axios
-      .get(`https://tech-job-portal-server.vercel.app/applications/me?email=${user?.email}`, {
+      .get(`${BASE_URL}/applications/me?email=${user?.email}`, {
         withCredentials: true,
       })
       .then((res) => setApps(res.data));

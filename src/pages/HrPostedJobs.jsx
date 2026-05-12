@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
 const HrPostedJobs = () => {
@@ -7,7 +8,7 @@ const HrPostedJobs = () => {
   const [postedJobs, setPostedJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`https://tech-job-portal-server.vercel.app/jobs?email=${user?.email}`)
+    fetch(`${BASE_URL}/jobs?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

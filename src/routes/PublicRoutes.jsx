@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import BASE_URL from '../api/baseURL';
 import HotJobCardDetails from '../components/HotJobCardDetails';
 import HrReviewApplications from '../components/HrReviewApplications';
 import JobApply from '../components/JobApply';
@@ -27,8 +28,7 @@ let router = createBrowserRouter([
             <HotJobCardDetails></HotJobCardDetails>
           </PrivateRoutes>
         ),
-        loader: ({ params }) =>
-          fetch(`https://tech-job-portal-server.vercel.app/jobs/details/${params.id}`),
+        loader: ({ params }) => fetch(`${BASE_URL}/jobs/details/${params.id}`),
       },
       {
         path: '/jobs/add',
@@ -69,8 +69,7 @@ let router = createBrowserRouter([
             <HrReviewApplications></HrReviewApplications>
           </PrivateRoutes>
         ),
-        loader: ({ params }) =>
-          fetch(`https://tech-job-portal-server.vercel.app/applications/review/${params.jobId}`),
+        loader: ({ params }) => fetch(`${BASE_URL}/applications/review/${params.jobId}`),
       },
       {
         path: '/register',

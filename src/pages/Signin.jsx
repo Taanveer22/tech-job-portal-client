@@ -3,6 +3,7 @@ import Lottie from 'lottie-react';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 import signinLottie from '../assets/signinLottie.json';
 import AuthContext from '../context/AuthContext';
 
@@ -21,22 +22,23 @@ const Signin = () => {
     const password = e.target.password.value;
     // sign in auth
     try {
-      // ✅ Firebase/Auth signin
-      await signInUser(email, password);
+      // ✅ Firebase authentication
+      // result contains verified Firebase user
+      const result = await signInUser(email, password);
       toast.success('Signed in successfully');
 
-      // ✅ Create JWT payload
-      const userEmail = { email: email };
+      // ✅ ALWAYS get email from Firebase user
+      // safer than using form input email
+      const userEmail = { email: result?.user?.email };
 
-      // ✅ Wait until cookie is stored
-      const res = await axios.post(
-        `https://tech-job-portal-server.vercel.app/auth/login`,
-        userEmail,
-        {
-          withCredentials: true,
-        }
-      );
-      alert(res.data);
+      // ✅ create JWT and store token cookie
+      const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, {
+        withCredentials: true,
+      });
+      // console.log(res.data);
+      if (res?.data) {
+        toast.success('Signin done');
+      }
 
       // ✅ Redirect after successful JWT creation
       navigate(from, { replace: true });
@@ -48,24 +50,26 @@ const Signin = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      // ✅ Google login
+      // ✅ Firebase authentication
+      // result contains verified Firebase user
       const result = await googleSignIn();
       toast.success('Google sign in done');
 
-      // ✅ Get logged in user email
+      // ✅ ALWAYS get email from Firebase user
+      // safer than using form input email
       const userEmail = {
         email: result?.user?.email || result?.user?.providerData[0]?.email,
       };
 
       // ✅ Create JWT + store cookie
-      const res = await axios.post(
-        `https://tech-job-portal-server.vercel.app/auth/login`,
-        userEmail,
-        {
-          withCredentials: true,
-        }
-      );
-      alert(res.data);
+      const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, {
+        withCredentials: true,
+      });
+      // console.log(res.data);
+      if (res?.data) {
+        toast.success('Google Sign In done');
+      }
+
       // ✅ Redirect after JWT cookie stored
       navigate(from, { replace: true });
     } catch (error) {

@@ -1,19 +1,21 @@
+import axios from 'axios';
 import { useContext } from 'react';
 import { NavLink } from 'react-router';
 import { toast } from 'react-toastify';
+import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   // console.log(user);
-  const handleSignOut = () => {
-    signOutUser()
-      .then(() => {
-        toast.success('sign out done');
-      })
-      .catch(() => {
-        toast.error('sign out failed');
-      });
+  const handleSignOut = async () => {
+    try {
+      await axios.post(`${BASE_URL}/auth/logout`, {}, { withCredentials: true });
+      await signOutUser();
+      toast.success('sign out done');
+    } catch {
+      toast.error('sign out failed');
+    }
   };
   const links = (
     <>
