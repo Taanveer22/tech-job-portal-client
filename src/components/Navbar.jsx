@@ -13,8 +13,9 @@ const Navbar = () => {
       await axios.post(`${BASE_URL}/auth/logout`, {}, { withCredentials: true });
       await signOutUser();
       toast.success('sign out done');
-    } catch {
-      toast.error('sign out failed');
+    } catch (error) {
+      // console.log(error);
+      toast.error(error?.message || 'sign out failed');
     }
   };
   const links = (
@@ -68,7 +69,7 @@ const Navbar = () => {
             {user ? (
               <div className="flex gap-2 items-center">
                 <span>{user?.displayName}</span>
-                <button onClick={handleSignOut} className="btn btn-sm">
+                <button onClick={handleSignOut} type="button" className="btn btn-sm">
                   Logout
                 </button>
               </div>

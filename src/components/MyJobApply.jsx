@@ -27,9 +27,7 @@ const MyJobApply = () => {
     };
     // console.log(jobInfo);
     axios
-      .post(`${BASE_URL}/applications/apply/${id}`, jobInfo, {
-        withCredentials: true,
-      })
+      .post(`${BASE_URL}/applications/apply/${id}`, jobInfo)
       .then((res) => {
         // console.log(res.data);
         if (res.data.insertedId) {
