@@ -2,11 +2,12 @@ import { createBrowserRouter } from 'react-router';
 import BASE_URL from '../api/baseURL';
 import HotJobCardDetails from '../components/HotJobCardDetails';
 import HrReviewApplications from '../components/HrReviewApplications';
-import JobApply from '../components/JobApply';
+import MyJobApply from '../components/MyJobApply';
+import Spinner from '../components/Spinner';
 import Root from '../layouts/Root';
 import Home from '../pages/Home';
 import HrAddJob from '../pages/HrAddJob';
-import HrPostedJobs from '../pages/HrPostedJobs';
+import HrPublishedJobs from '../pages/HrPublishedJobs';
 import MyApplications from '../pages/MyApplications';
 import Register from '../pages/Register';
 import Signin from '../pages/Signin';
@@ -16,6 +17,7 @@ let router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    hydrateFallbackElement: <Spinner />,
     children: [
       {
         index: true,
@@ -31,26 +33,10 @@ let router = createBrowserRouter([
         loader: ({ params }) => fetch(`${BASE_URL}/jobs/details/${params.id}`),
       },
       {
-        path: '/jobs/add',
-        element: (
-          <PrivateRoutes>
-            <HrAddJob></HrAddJob>
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: '/jobs/post',
-        element: (
-          <PrivateRoutes>
-            <HrPostedJobs></HrPostedJobs>
-          </PrivateRoutes>
-        ),
-      },
-      {
         path: '/applications/apply/:id',
         element: (
           <PrivateRoutes>
-            <JobApply></JobApply>
+            <MyJobApply></MyJobApply>
           </PrivateRoutes>
         ),
       },
@@ -62,6 +48,23 @@ let router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+      {
+        path: '/jobs/add',
+        element: (
+          <PrivateRoutes>
+            <HrAddJob></HrAddJob>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: '/jobs/publish',
+        element: (
+          <PrivateRoutes>
+            <HrPublishedJobs></HrPublishedJobs>
+          </PrivateRoutes>
+        ),
+      },
+
       {
         path: '/applications/review/:jobId',
         element: (

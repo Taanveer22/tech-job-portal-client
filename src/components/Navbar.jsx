@@ -29,7 +29,7 @@ const Navbar = () => {
         <NavLink to="/jobs/add">Hr Add Job</NavLink>
       </li>
       <li>
-        <NavLink to="/jobs/post">Hr Posted Jobs</NavLink>
+        <NavLink to="/jobs/publish">Hr Published Jobs</NavLink>
       </li>
     </>
   );

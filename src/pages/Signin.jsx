@@ -21,12 +21,11 @@ const Signin = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     try {
-      // ✅ Firebase authentication
-      // result contains verified Firebase user
+      //✅ result contains verified Firebase user
       const result = await signInUser(email, password);
 
       // ✅ ALWAYS get email from Firebase user
-      // safer than using form input email
+      // ✅ safer than using form input email
       const userEmail = { email: result?.user?.email };
 
       // ✅ create JWT and store token cookie

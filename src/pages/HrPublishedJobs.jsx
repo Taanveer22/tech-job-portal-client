@@ -1,18 +1,24 @@
+import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
 import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
-const HrPostedJobs = () => {
+const HrPublishedJobs = () => {
   const { user } = useContext(AuthContext);
   const [postedJobs, setPostedJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/jobs?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        setPostedJobs(data);
+    axios
+      .get(`${BASE_URL}/jobs?email=${user?.email}`)
+      .then((res) => {
+        // console.log(res.data);
+        setPostedJobs(res.data);
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to load published jobs');
       });
   }, [user?.email]);
   // console.log(postedJobs);
@@ -20,7 +26,7 @@ const HrPostedJobs = () => {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-center mb-4">
-        Hr Posted Jobs Total : {postedJobs.length}
+        Hr Published Jobs Total : {postedJobs.length}
       </h1>
 
       <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
@@ -56,4 +62,4 @@ const HrPostedJobs = () => {
   );
 };
 
-export default HrPostedJobs;
+export default HrPublishedJobs;

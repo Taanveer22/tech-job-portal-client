@@ -25,7 +25,7 @@ const MyApplications = () => {
       })
       .catch((error) => {
         // console.log(error);
-        toast.error(error.response?.data?.message || 'Failed to load applications');
+        toast.error(error.response?.data?.message || 'Failed to delete applications');
       });
   };
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import BASE_URL from '../api/baseURL';
@@ -5,6 +6,8 @@ import AuthContext from '../context/AuthContext';
 
 const HrAddJob = () => {
   const { user } = useContext(AuthContext);
+
+  const todayLocal = new Date().toLocaleDateString('en-CA');
 
   const handleAddJobForm = (e) => {
     e.preventDefault();
@@ -20,19 +23,17 @@ const HrAddJob = () => {
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
     // console.log(restFormData);
 
-    fetch(`${BASE_URL}/jobs`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(restFormData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
+    axios
+      .post(`${BASE_URL}/jobs`, restFormData)
+      .then((res) => {
         // console.log(data);
-        if (data.insertedId) {
-          toast.success('HR job data added successfully');
+        if (res.data.insertedId) {
+          toast.success('job data added successfully');
         }
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to add job');
       });
   };
 
@@ -145,6 +146,7 @@ const HrAddJob = () => {
           <label className="label">HR Email</label>
           <input
             defaultValue={user?.email}
+            readOnly
             name="hr_email"
             type="email"
             className="input w-full"
@@ -153,11 +155,18 @@ const HrAddJob = () => {
 
           {/* hr name */}
           <label className="label">HR Name</label>
-          <input name="hr_name" type="text" className="input w-full" placeholder="Name" />
+          <input
+            defaultValue={user?.displayName}
+            readOnly
+            name="hr_name"
+            type="text"
+            className="input w-full"
+            placeholder="Name"
+          />
 
           {/* deadline */}
           <label className="label">Application Deadline</label>
-          <input name="applicationDeadline" type="date" className="input w-full" />
+          <input min={todayLocal} name="applicationDeadline" type="date" className="input w-full" />
 
           {/* submit */}
           <button className="btn btn-neutral mt-4">Add Job</button>
@@ -168,18 +177,3 @@ const HrAddJob = () => {
 };
 
 export default HrAddJob;
-
-// title
-// location
-// jobType
-// category
-// applicationDeadline
-// salaryRange
-// description
-// company
-// requirements
-// responsibilities
-// status
-// hr_email
-// hr_name
-// company_logo

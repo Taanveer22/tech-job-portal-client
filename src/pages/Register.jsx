@@ -18,22 +18,22 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     //console.log(name, photo, email, password);
+
     try {
-      // ✅ create Firebase user
-      // result contains verified Firebase user
+      // ✅ result contains verified Firebase user
       const result = await createUser(email, password);
       // ✅ update Firebase profile
       await updateUserProfile(name, photo);
       // ✅ ALWAYS get email from Firebase user
-      // safer than using form input email
+      // ✅ safer than using form input email
       const userEmail = { email: result?.user?.email };
+
       // ✅ create JWT + store cookie
       const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, { withCredentials: true });
       // console.log(res.data);
       if (res?.data) {
         toast.success('Registration done');
       }
-
       // ✅ redirect after JWT stored
       navigate('/');
     } catch (error) {

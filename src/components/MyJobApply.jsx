@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
 
-const JobApply = () => {
+const MyJobApply = () => {
   const { user } = useContext(AuthContext);
-  // console.log(user?.email);
+  console.log(user);
   const { id } = useParams();
   // console.log(id);
   const navigate = useNavigate();
@@ -36,6 +36,10 @@ const JobApply = () => {
           toast.success('Applied job successfully');
           navigate('/applications/me', { replace: true });
         }
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to apply job');
       });
   };
 
@@ -59,4 +63,4 @@ const JobApply = () => {
   );
 };
 
-export default JobApply;
+export default MyJobApply;

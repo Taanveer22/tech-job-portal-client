@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
 import BASE_URL from '../api/baseURL';
@@ -12,19 +13,17 @@ const HrReviewApplications = () => {
       status: e.target.value,
     };
 
-    fetch(`${BASE_URL}/applications/status/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(statusData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        if (data.modifiedCount) {
+    axios
+      .patch(`${BASE_URL}/applications/status/${id}`, statusData)
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.modifiedCount) {
           toast.success('Status updated successfully');
         }
+      })
+      .catch((error) => {
+        // console.log(error);
+        toast.error(error.response?.data?.message || 'Failed to update status');
       });
   };
 
