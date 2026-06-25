@@ -51,10 +51,9 @@ const HrReviewApplications = () => {
               <td>
                 <select
                   onChange={(e) => handleUpdateStatus(e, appItem._id)}
-                  defaultValue="Small"
+                  defaultValue={appItem?.status}
                   className="select select-sm"
                 >
-                  <option disabled={true}>{appItem?.status || 'Change'}</option>
                   <option>hired</option>
                   <option>rejected</option>
                   <option>pending</option>
