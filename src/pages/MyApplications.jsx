@@ -15,7 +15,7 @@ const MyApplications = () => {
   const handleDeleteApplication = (id) => {
     // console.log(id);
     axios
-      .delete(`${BASE_URL}/applications/me/${id}`)
+      .delete(`${BASE_URL}/applications/remove/${id}`)
       .then((res) => {
         // console.log(res.data);
         if (res.data.deletedCount > 0) {

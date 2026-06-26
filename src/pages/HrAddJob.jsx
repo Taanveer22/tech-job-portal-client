@@ -24,7 +24,7 @@ const HrAddJob = () => {
     // console.log(restFormData);
 
     axios
-      .post(`${BASE_URL}/jobs`, restFormData)
+      .post(`${BASE_URL}/jobs/add`, restFormData)
       .then((res) => {
         // console.log(data);
         if (res.data.insertedId) {
@@ -146,6 +146,7 @@ const HrAddJob = () => {
           <label className="label">HR Email</label>
           <input
             defaultValue={user?.email}
+            required
             readOnly
             name="hr_email"
             type="email"
