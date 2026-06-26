@@ -38,7 +38,7 @@ const HrPublishedJobs = () => {
               <th>Job Title</th>
               <th>Application Deadline</th>
               <th>Application Count</th>
-              <th> Application Info</th>
+              <th>Application Review</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +50,7 @@ const HrPublishedJobs = () => {
                 <td>{jobItem?.applicationCount}</td>
                 <td>
                   <Link to={`/applications/review/${jobItem._id}`}>
-                    <button className="btn btn-sm btn-link">Review Applications</button>
+                    <button className="btn btn-sm btn-link">Click to see</button>
                   </Link>
                 </td>
               </tr>

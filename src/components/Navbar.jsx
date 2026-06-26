@@ -10,11 +10,13 @@ const Navbar = () => {
   // console.log(user);
   const handleSignOut = async () => {
     try {
-      await axios.post(`${BASE_URL}/auth/logout`, {}, { withCredentials: true });
+      await axios.post(`${BASE_URL}/jwt/logout`, {}, { withCredentials: true });
       await signOutUser();
       toast.success('sign out done');
     } catch (error) {
-      // console.log(error);
+      console.log(error);
+      console.log(error.response?.data);
+      console.log(error.response?.status);
       toast.error(error?.message || 'sign out failed');
     }
   };

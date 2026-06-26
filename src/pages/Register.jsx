@@ -26,10 +26,14 @@ const Register = () => {
       await updateUserProfile(name, photo);
       // ✅ ALWAYS get email from Firebase user
       // ✅ safer than using form input email
-      const userEmail = { email: result?.user?.email };
-
       // ✅ create JWT + store cookie
-      const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, { withCredentials: true });
+      const res = await axios.post(
+        `${BASE_URL}/jwt/login`,
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
       // console.log(res.data);
       if (res?.data) {
         toast.success('Registration done');
@@ -40,6 +44,7 @@ const Register = () => {
       toast.error(error.message);
     }
   };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">

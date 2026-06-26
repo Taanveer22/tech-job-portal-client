@@ -12,6 +12,7 @@ import auth from '../utilities/firebase.config';
 import AuthContext from './AuthContext';
 
 const provider = new GoogleAuthProvider();
+provider.addScope('email');
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

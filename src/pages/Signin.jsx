@@ -23,17 +23,21 @@ const Signin = () => {
     try {
       //✅ result contains verified Firebase user
       const result = await signInUser(email, password);
+      console.log(result);
 
       // ✅ ALWAYS get email from Firebase user
       // ✅ safer than using form input email
-      const userEmail = { email: result?.user?.email };
-
       // ✅ create JWT and store token cookie
-      const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${BASE_URL}/jwt/login`,
+        { email: result?.user?.email },
+        {
+          withCredentials: true,
+        }
+      );
       // console.log(res.data);
       if (res?.data) {
+        console.log(res?.data);
         toast.success('Signin done with token');
       }
 
@@ -51,14 +55,16 @@ const Signin = () => {
       const result = await googleSignIn();
 
       // ✅ ALWAYS get email from Firebase user
-      const userEmail = {
-        email: result?.user?.email || result?.user?.providerData[0]?.email,
-      };
-
       // ✅ Create JWT + store cookie
-      const res = await axios.post(`${BASE_URL}/auth/login`, userEmail, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${BASE_URL}/jwt/login`,
+        {
+          email: result?.user?.email || result?.user?.providerData?.[0]?.email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       // console.log(res.data);
       if (res?.data) {
         toast.success('Google sign in done with token');

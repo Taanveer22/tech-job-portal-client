@@ -6,7 +6,10 @@ import AuthContext from '../context/AuthContext';
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
-  // console.log(user?.email);
+  console.log(user);
+  console.log(user?.email);
+  console.log(user?.providerData?.[0]?.email);
+
   const [apps, setApps] = useState([]);
 
   const handleDeleteApplication = (id) => {
@@ -28,9 +31,14 @@ const MyApplications = () => {
   };
 
   useEffect(() => {
-    if (!user?.email) return;
+    const userEmail = user?.email || user?.providerData?.[0]?.email;
+    if (!userEmail) {
+      toast.warning('No user email found');
+      return;
+    }
+
     axios
-      .get(`${BASE_URL}/applications/me?email=${user?.email}`, {
+      .get(`${BASE_URL}/applications/me?email=${userEmail}`, {
         withCredentials: true,
       })
       .then((res) => setApps(res.data))
@@ -38,7 +46,7 @@ const MyApplications = () => {
         // console.log(error);
         toast.error(error.response?.data?.message || 'Failed to load applications');
       });
-  }, [user?.email]);
+  }, [user]);
 
   return (
     <div>

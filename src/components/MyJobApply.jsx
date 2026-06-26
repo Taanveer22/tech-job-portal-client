@@ -19,7 +19,7 @@ const MyJobApply = () => {
     const resume = e.target.resume.value;
     // console.log(linkedin, github, resume);
     const jobInfo = {
-      applicant_email: user?.email,
+      applicant_email: user?.email || user?.providerData?.[0]?.email,
       job_id: id,
       linkedin,
       github,
@@ -36,7 +36,7 @@ const MyJobApply = () => {
         }
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
         toast.error(error.response?.data?.message || 'Failed to apply job');
       });
   };
