@@ -7,7 +7,7 @@ import AuthContext from '../context/AuthContext';
 
 const MyJobApply = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   const { id } = useParams();
   // console.log(id);
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const MyJobApply = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         toast.error(error.response?.data?.message || 'Failed to apply job');
       });
   };

@@ -23,7 +23,7 @@ const Signin = () => {
     try {
       //✅ result contains verified Firebase user
       const result = await signInUser(email, password);
-      console.log(result);
+      // console.log(result);
 
       // ✅ ALWAYS get email from Firebase user
       // ✅ safer than using form input email
@@ -37,7 +37,7 @@ const Signin = () => {
       );
       // console.log(res.data);
       if (res?.data) {
-        console.log(res?.data);
+        // console.log(res?.data);
         toast.success('Signin done with token');
       }
 

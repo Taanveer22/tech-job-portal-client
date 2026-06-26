@@ -14,10 +14,9 @@ const Navbar = () => {
       await signOutUser();
       toast.success('sign out done');
     } catch (error) {
-      console.log(error);
-      console.log(error.response?.data);
-      console.log(error.response?.status);
-      toast.error(error?.message || 'sign out failed');
+      // console.log(error);
+      // console.log(error.response?.status);
+      toast.error(error.response?.status || 'sign out failed');
     }
   };
   const links = (

@@ -6,9 +6,9 @@ import AuthContext from '../context/AuthContext';
 
 const MyApplications = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
-  console.log(user?.email);
-  console.log(user?.providerData?.[0]?.email);
+  // console.log(user);
+  // console.log(user?.email);
+  // console.log(user?.providerData?.[0]?.email);
 
   const [apps, setApps] = useState([]);
 
