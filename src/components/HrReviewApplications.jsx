@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const HrReviewApplications = () => {
+  const axiosCommon = useAxiosCommon();
   const ReviewedApps = useLoaderData();
   //   console.log(ReviewedApps);
 
@@ -13,8 +13,8 @@ const HrReviewApplications = () => {
       status: e.target.value,
     };
 
-    axios
-      .patch(`${BASE_URL}/applications/status/${id}`, statusData)
+    axiosCommon
+      .patch(`/applications/status/${id}`, statusData)
       .then((res) => {
         // console.log(res.data);
         if (res.data.modifiedCount) {

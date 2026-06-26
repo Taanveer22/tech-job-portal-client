@@ -1,18 +1,18 @@
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import signinLottie from '../assets/signinLottie.json';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const Signin = () => {
-  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const axiosCommon = useAxiosCommon();
   const location = useLocation();
   // console.log(location);
   const navigate = useNavigate();
   // console.log(navigate);
+  const { signInUser, googleSignIn } = useContext(AuthContext);
 
   const from = location?.state || '/';
 
@@ -28,8 +28,8 @@ const Signin = () => {
       // ✅ ALWAYS get email from Firebase user
       // ✅ safer than using form input email
       // ✅ create JWT and store token cookie
-      const res = await axios.post(
-        `${BASE_URL}/jwt/login`,
+      const res = await axiosCommon.post(
+        `/jwt/login`,
         { email: result?.user?.email },
         {
           withCredentials: true,
@@ -56,8 +56,8 @@ const Signin = () => {
 
       // ✅ ALWAYS get email from Firebase user
       // ✅ Create JWT + store cookie
-      const res = await axios.post(
-        `${BASE_URL}/jwt/login`,
+      const res = await axiosCommon.post(
+        `/jwt/login`,
         {
           email: result?.user?.email || result?.user?.providerData?.[0]?.email,
         },

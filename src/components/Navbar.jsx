@@ -1,16 +1,16 @@
-import axios from 'axios';
 import { useContext } from 'react';
 import { NavLink } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const Navbar = () => {
+  const axiosCommon = useAxiosCommon();
   const { user, signOutUser } = useContext(AuthContext);
   // console.log(user);
   const handleSignOut = async () => {
     try {
-      await axios.post(`${BASE_URL}/jwt/logout`, {}, { withCredentials: true });
+      await axiosCommon.post(`/jwt/logout`, {}, { withCredentials: true });
       await signOutUser();
       toast.success('sign out done');
     } catch (error) {

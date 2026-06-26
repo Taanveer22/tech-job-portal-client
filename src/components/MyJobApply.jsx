@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const MyJobApply = () => {
+  const axiosCommon = useAxiosCommon();
   const { user } = useContext(AuthContext);
   // console.log(user);
   const { id } = useParams();
@@ -26,8 +26,8 @@ const MyJobApply = () => {
       resume,
     };
     // console.log(jobInfo);
-    axios
-      .post(`${BASE_URL}/applications/apply/${id}`, jobInfo)
+    axiosCommon
+      .post(`/applications/apply/${id}`, jobInfo)
       .then((res) => {
         // console.log(res.data);
         if (res.data.insertedId) {

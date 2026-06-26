@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const HrAddJob = () => {
+  const axiosCommon = useAxiosCommon();
   const { user } = useContext(AuthContext);
 
   const todayLocal = new Date().toLocaleDateString('en-CA');
@@ -23,8 +23,8 @@ const HrAddJob = () => {
     restFormData.responsibilities = restFormData.responsibilities.split('\n');
     // console.log(restFormData);
 
-    axios
-      .post(`${BASE_URL}/jobs/add`, restFormData)
+    axiosCommon
+      .post(`/jobs/add`, restFormData)
       .then((res) => {
         // console.log(data);
         if (res.data.insertedId) {

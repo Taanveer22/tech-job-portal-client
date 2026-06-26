@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const MyApplications = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   // console.log(user);
   // console.log(user?.email);
@@ -14,8 +14,8 @@ const MyApplications = () => {
 
   const handleDeleteApplication = (id) => {
     // console.log(id);
-    axios
-      .delete(`${BASE_URL}/applications/remove/${id}`)
+    axiosSecure
+      .delete(`/applications/remove/${id}`)
       .then((res) => {
         // console.log(res.data);
         if (res.data.deletedCount > 0) {
@@ -37,8 +37,8 @@ const MyApplications = () => {
       return;
     }
 
-    axios
-      .get(`${BASE_URL}/applications/me?email=${userEmail}`, {
+    axiosSecure
+      .get(`/applications/me?email=${userEmail}`, {
         withCredentials: true,
       })
       .then((res) => setApps(res.data))
@@ -46,7 +46,7 @@ const MyApplications = () => {
         // console.log(error);
         toast.error(error.response?.data?.message || 'Failed to load applications');
       });
-  }, [user]);
+  }, [axiosSecure, user]);
 
   return (
     <div>

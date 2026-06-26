@@ -1,21 +1,21 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 import HotJobCard from './HotJobCard';
 
 const HotJobs = () => {
+  const axiosCommon = useAxiosCommon();
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/jobs`)
+    axiosCommon
+      .get(`/jobs`)
       .then((res) => setJobs(res.data))
       .catch((error) => {
         // console.log(error);
         toast.error(error.response?.data?.message || 'Failed to load jobs');
       });
-  }, []);
+  }, [axiosCommon]);
 
   return (
     <div>

@@ -1,20 +1,20 @@
-import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const HrPublishedJobs = () => {
+  const axiosCommon = useAxiosCommon();
   const { user } = useContext(AuthContext);
   const [postedJobs, setPostedJobs] = useState([]);
 
   const handleDeletePostedJob = (id) => {
     // console.log(id);
-    axios
-      .delete(`${BASE_URL}/jobs/remove/${id}`)
+    axiosCommon
+      .delete(`/jobs/remove/${id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res?.data?.deletedCount > 0) {
           const remaining = postedJobs.filter((jobItem) => jobItem._id !== id);
           setPostedJobs(remaining);
@@ -28,8 +28,8 @@ const HrPublishedJobs = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/jobs?email=${user?.email}`)
+    axiosCommon
+      .get(`/jobs?email=${user?.email}`)
       .then((res) => {
         // console.log(res.data);
         setPostedJobs(res.data);

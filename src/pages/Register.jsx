@@ -1,15 +1,15 @@
-import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import BASE_URL from '../api/baseURL';
 import registerLottie from '../assets/registerLottie.json';
 import AuthContext from '../context/AuthContext';
+import useAxiosCommon from '../hooks/useAxiosCommon';
 
 const Register = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const axiosCommon = useAxiosCommon();
   const navigate = useNavigate();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const handleRegisterForm = async (e) => {
     e.preventDefault();
@@ -27,8 +27,8 @@ const Register = () => {
       // ✅ ALWAYS get email from Firebase user
       // ✅ safer than using form input email
       // ✅ create JWT + store cookie
-      const res = await axios.post(
-        `${BASE_URL}/jwt/login`,
+      const res = await axiosCommon.post(
+        `/jwt/login`,
         {
           email: result?.user?.email,
         },
