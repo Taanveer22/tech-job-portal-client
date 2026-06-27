@@ -16,11 +16,11 @@ const useAxiosSecure = () => {
     // ✅ Request Interceptor — no token needed, cookies sent automatically
     const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
-        // console.log('request config', config);
+        console.log('request config', config);
         return config;
       },
       (error) => {
-        // console.log('request error', error);
+        console.log('request error', error);
         return Promise.reject(error);
       }
     );
@@ -28,11 +28,11 @@ const useAxiosSecure = () => {
     // ✅ Response Interceptor — handle auth errors globally
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => {
-        // console.log('response data', res);
+        console.log('response config', res);
         return res;
       },
       async (error) => {
-        // console.log('response error', error);
+        console.log('response error', error);
         if (error?.response?.status === 401 || error?.response?.status === 403) {
           await signOutUser();
           navigate('/', { replace: true });
